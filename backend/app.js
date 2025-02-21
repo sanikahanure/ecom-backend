@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-require('dotenv').config();
-let PORT=process.env.PORT||8000;
+// require('dotenv').config();
+
 const mongoose = require('mongoose');
 const {User} = require('./models/User');
 const bcrypt = require('bcrypt');
@@ -16,11 +16,13 @@ app.use(express.json())
 app.use(cors());
 app.use(morgan("dev"));
 
+const MONGODB_URL='mongodb+srv://sanikakhanure25:REX1UUqQGs5z1s0G@cluster0.2l4ko.mongodb.net/shopifyProject?retryWrites=true&w=majority'
 
-mongoose.connect(process.env.MONGODB_URL)
+mongoose.connect(MONGODB_URL)
 .then(()=>{
     console.log("DB is connected");
-}).catch(()=>{
+}).catch((err)=>{
+    console.log(err)
     console.log("DB is not connected")
 })
 
@@ -403,7 +405,7 @@ app.delete("/cart/product/delete", async (req, res) => {
   });
   
   
-  
+  const PORT = 8080;
 app.listen(PORT,()=>{
     console.log(`server is connected to ${PORT}`);
 })
